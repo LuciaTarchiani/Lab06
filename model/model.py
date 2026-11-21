@@ -30,6 +30,23 @@ class Model:
         filtrate.sort(key=lambda v: v.ricavo(), reverse=True)
         return filtrate[:5]
 
+    def statistiche(self,anno,brand,retailer):
+        filtrate = self.filtraVendite(anno, brand, retailer)
+        numVendite = len(filtrate)
+        totRicavo = 0
+        retailerDifferenti = []
+        prodottiDifferenti = []
+        for v in filtrate:
+            totRicavo += v.ricavo()
+            if v.Retailer_code not in retailerDifferenti:
+                retailerDifferenti.append(v.Retailer_code)
+            if v.Product_number not in prodottiDifferenti:
+                prodottiDifferenti.append(v.Product_number)
+        numRetailer = len(retailerDifferenti)
+        numProdotti = len(prodottiDifferenti)
+        return [f"giro di affari : {totRicavo}", f"numero vendite: {numVendite}", f"numero retailers: {numRetailer}" , f"numero prodotti: {numProdotti}"]
+
+
     def filtraVendite(self,anno,brand,retailer):
         filtrate = []
         for v in self._allVendite:

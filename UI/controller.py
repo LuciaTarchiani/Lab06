@@ -99,4 +99,26 @@ class Controller:
 
 
     def getAnalizzaVendite(self,e):
-        pass
+        self._view.txt_result.controls.clear()
+        anno = self._view._ddAnno.value
+        if anno == "Nessun Filtro":
+            anno = None
+        brand = self._view._ddBrand.value
+        if brand == "Nessun Filtro":
+            brand = None
+        retailer = self._view._ddRetailer.value
+        if retailer == "Nessun Filtro":
+            retailer = None
+
+        statistiche = self._model.statistiche(anno,brand,retailer)
+
+        self._view.txt_result.controls.append(
+            ft.TextField("Statistiche vendite")
+        )
+        self._view.update_page()
+
+        for s in statistiche:
+            self._view.txt_result.controls.append(
+                ft.TextField(s)
+            )
+        self._view.update_page()
