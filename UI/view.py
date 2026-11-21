@@ -29,11 +29,11 @@ class View(ft.UserControl):
         self._page.controls.append(self._title)
 
         # tutti i dropdown vanno riempiti con informazioni lette dal DB
-        self._ddAnno = ft.Dropdown(label="Anno", width = 200 , options = [ft.dropdown.Option("Nessun Filtro")])
+        self._ddAnno = ft.Dropdown(label="Anno", width = 200 , options = [ft.dropdown.Option(text ="Nessun Filtro")])
         self._controller.fillddAnno()
-        self._ddBrand = ft.Dropdown(label="Brand", width = 200, options = [ft.dropdown.Option("Nessun Filtro")])
+        self._ddBrand = ft.Dropdown(label="Brand", width = 200, options = [ft.dropdown.Option(text = "Nessun Filtro")])
         self._controller.fillddBrand()
-        self._ddRetailer = ft.Dropdown(label="Retailer", width = 200, options = [ft.dropdown.Option("Nessun Filtro")])
+        self._ddRetailer = ft.Dropdown(label="Retailer", width = 200, options = [ft.dropdown.Option(text = "Nessun Filtro", on_click = self._controller.setRetailer)])
         self._controller.fillddRetailer()
 
         row1 = ft.Row([self._ddAnno, self._ddBrand, self._ddRetailer], alignment= ft.MainAxisAlignment.CENTER)

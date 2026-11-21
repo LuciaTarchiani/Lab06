@@ -44,8 +44,59 @@ class Controller:
     def read_retailer(self,e):
         self._retailer = e.control.data
 
+    def setRetailer(self,e):
+        self._retailer = None
+
+    """
     def getTopVendite(self,e):
-        pass
+        #dobbiamo farci restituire una lista di oggetti VENDITA
+        # per effettuare le query dobbiamo recuperare dalla view i valori dei vari dropdowm
+        # ANNO
+        self._view.txt_result.controls.clear()
+        anno = self._view._ddAnno.value
+        if anno == "Nessun Filtro":
+            anno = None
+        brand = self._view._ddBrand.value
+        if brand == "Nessun Filtro":
+            brand = None
+        retailer = self._view._ddRetailer.value
+        if retailer == "Nessun Filtro":
+            retailer = None
+
+        # abbiamo una lista con tutte le vendite richieste
+        vendite = self._model.getVendite(anno,brand,retailer)
+
+        n = 0
+        while n < 5:
+            self._view.txt_result.controls.append(
+                ft.TextField(vendite[n].__str__())
+            )
+            n += 1
+
+        self._view.update_page()
+    """
+
+    def getTopVendite(self,e):
+        #il model deve resituirici le top vendite, le operazioni di selezione devo essere fatte nel model.
+        self._view.txt_result.controls.clear()
+        anno = self._view._ddAnno.value
+        if anno == "Nessun Filtro":
+            anno = None
+        brand = self._view._ddBrand.value
+        if brand == "Nessun Filtro":
+            brand = None
+        retailer = self._view._ddRetailer.value
+        if retailer == "Nessun Filtro":
+            retailer = None
+        topVendite = self._model.topVendite(anno,brand,retailer)
+
+        for v in topVendite:
+            self._view.txt_result.controls.append(
+                ft.TextField(v.__str__())
+            )
+
+        self._view.update_page()
+
 
     def getAnalizzaVendite(self,e):
         pass
